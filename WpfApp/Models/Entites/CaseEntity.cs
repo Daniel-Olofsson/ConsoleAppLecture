@@ -24,8 +24,8 @@ internal class CaseEntity
     public DateTime Created { get; set; } 
     public DateTime Modified { get; set; }
     public int StatusId { get; set; }
-    public StatusEnity Status { get; set; } 
+    public StatusEntity Status { get; set; }
     public int CustomerId { get; set; }
-    public CustomerEntity Customer { get; set; } 
+    public CustomerEntity Customer { get; set; }
     public ICollection<CommentEntity> Comments { get; set; } = new HashSet<CommentEntity>();
 }
