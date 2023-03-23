@@ -17,13 +17,17 @@ internal class CaseService
     private readonly CustomerService _customerService = new CustomerService();
     public async Task<CaseEntity> CreateAsync(CaseEntity caseEntity)
     {
-        if(await _customerService.GetAsync(x => x.Id == caseEntity.CustomerId) != null && await _statusService.GetAllAsync(statusEntity => statusEntity) ) 
+        var customer = await _customerService.GetAsync(x => x.Id == caseEntity.CustomerId);
+        var statuses = await _statusService.GetAllAsync();
+        if (customer != null && statuses != null && statuses.Any())
         {
-            _context.Add(caseEntity); 
+            _context.Add(caseEntity);
             await _context.SaveChangesAsync();
         }
+        return caseEntity;
+
     }
-    public async Task<IEnumerable<CaseEntity>> GetAllAsync()
+        public async Task<IEnumerable<CaseEntity>> GetAllAsync()
     {
         return await _context.Cases
             .Include(x => x.Customer)
@@ -57,11 +61,18 @@ internal class CaseService
         var _caseEntity = await _context.Cases.FirstOrDefaultAsync(predicate);
         if (_caseEntity != null)
         {
-            switch (_caseEntity.StatusId)
+            switch (_caseEntity.StatusId, _caseEntity.Modified)
             {
-                case 1: _caseEntity.StatusId = 2; break;
-                case 2: _caseEntity.StatusId = 3; break;
-                case 3: _caseEntity.StatusId = 2; break;
+                case 1: _caseEntity.StatusId = 2;
+                    _caseEntity.Modified = DateTime.Now;
+                        break;
+                case 2: _caseEntity.StatusId = 3;
+                    _caseEntity.Modified = DateTime.Now;
+                        break;
+                case 3: _caseEntity.StatusId = 2;
+                    _caseEntity.Modified = DateTime.Now;
+                        break;
+                
             }
             _context.Update(_caseEntity);
             await _context.SaveChangesAsync();

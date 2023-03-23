@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp.Models.ViewModels;
 
-internal class NewCaseViewModel : ObservableObject
+internal class   NewCaseViewModel : ObservableObject
 {
     private readonly NavigationStore? navigationStore;
     private readonly CaseService _caseService = new CaseService();

@@ -12,11 +12,11 @@ internal class CommentService
     private readonly CaseService _caseService = new CaseService();
     public async Task CreateAsync(CommentEntity commentEntity)
     {
-        if(await _context.Cases.AnyAsync(x => x.Id == commentEntity.CaseId)) {
+        if (await _caseService.GetAsync(x => x.Id == commentEntity.CaseId) != null)
+        {
             _context.Add(commentEntity);
             await _context.SaveChangesAsync();
         }
-        
     }
     public async Task<IEnumerable<CommentEntity>> GetAllAsync()
     {
