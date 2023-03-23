@@ -32,6 +32,7 @@ internal class CustomerService
     public async Task<CustomerEntity> GetAsync(Expression<Func<CustomerEntity, bool>> predicate)
     {
         var _customerEntity = await _context.Customers.FirstOrDefaultAsync(predicate);
+
         return _customerEntity!;
     }
 }

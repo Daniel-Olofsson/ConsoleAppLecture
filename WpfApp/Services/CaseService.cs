@@ -1,12 +1,11 @@
-﻿using ConsoleApp.Context;
-using ConsoleApp.Models.Entities;
+﻿using ConsoleApp.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
+using WpfApp.Context;
 
 namespace ConsoleApp.Services;
 
@@ -15,13 +14,29 @@ internal class CaseService
     private readonly DataContext _context = new DataContext();
     private readonly StatusService _statusService = new StatusService();
     private readonly CustomerService _customerService = new CustomerService();
+    public CaseService(DataContext context, StatusService statusService, CustomerService customerService)
+    {
+        _context = context;
+        _statusService = statusService;
+        _customerService = customerService;
+    }
     public async Task<CaseEntity> CreateAsync(CaseEntity caseEntity)
     {
-        if(await _customerService.GetAsync(x => x.Id == caseEntity.CustomerId) != null && await _statusService.GetAllAsync(statusEntity => statusEntity) ) 
+        var customer = await _customerService.GetAsync(x => x.Id == caseEntity.CustomerId);
+        if (customer == null)
         {
-            _context.Add(caseEntity); 
-            await _context.SaveChangesAsync();
+            return null;
         }
+
+        var status = await _statusService.GetAsync(caseEntity.StatusId);
+        if (status == null)
+        {
+            return null;
+        }
+
+        _context.Add(caseEntity);
+        await _context.SaveChangesAsync();
+        return caseEntity;
     }
     public async Task<IEnumerable<CaseEntity>> GetAllAsync()
     {

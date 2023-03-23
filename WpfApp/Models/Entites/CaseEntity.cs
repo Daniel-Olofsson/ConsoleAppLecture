@@ -15,7 +15,7 @@ internal class CaseEntity
         Modified = DateTime.Now;
         StatusId = 1;
         Status = null!;
-        Customer = null!;
+        Customer = new CustomerEntity();
 
     }
     public int Id { get; set; }

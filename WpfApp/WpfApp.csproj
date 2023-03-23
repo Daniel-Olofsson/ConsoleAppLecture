@@ -8,6 +8,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Page Remove="Views\ActiveCasesView.xaml" />
+    <Page Remove="Views\CaseView.xaml" />
+    <Page Remove="Views\NewCaseView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ActiveCasesView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CaseView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\NewCaseView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
     <PackageReference Include="Microsoft.EntityFrameWorkcore.SqlServer" Version="7.0.4" />
     <PackageReference Include="Microsoft.EntityFrameWorkcore.Tools" Version="7.0.4">
