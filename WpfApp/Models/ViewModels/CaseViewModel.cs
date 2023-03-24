@@ -7,35 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
+using WpfApp.Services;
 
 namespace WpfApp.Models.ViewModels;
 
 internal partial class CaseViewModel : ObservableObject
 {
-    private readonly CaseService _caseService = new CaseService();
-    private readonly NavigationService _navigationService;
+    private readonly NavigationStore _navigationStore;
 
-    
-    [ObservableProperty]
-    private ObservableCollection<CaseEntity> cases = new ObservableCollection<CaseEntity>()
-
-    public CaseViewModel(NavigationService navigationService)
+    public CaseViewModel(int id, NavigationStore navigationStore)
     {
-        GetCases();
-        _navigationService = navigationService;
-    }
-
-    public ObservableCollection<CaseEntity> Cases
-    {
-        get { return cases; }
-        set { SetProperty(ref cases, value); }
-    }
-    private void GetCases()
-    {
-        var result = Task.Run(_caseService.GetAllAsync).Result;
-        result = result.OrderByDescending(x => x.Created);
-
-        foreach (var _case in result)
-            Cases.Add(_case);
+        _navigationStore = navigationStore;
     }
 }

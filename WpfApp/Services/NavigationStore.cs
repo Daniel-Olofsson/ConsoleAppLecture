@@ -1,23 +1,26 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace WpfApp.Services;
 
-internal class NavigationService
+internal class NavigationStore
 {
     public event Action? CurrentViewModelChanged;
+
     private ObservableObject? currentViewModel;
-    public ObservableObject? currentViewModel
+    public ObservableObject? CurrentViewModel
     {
         get => currentViewModel;
-        set 
+        set
         {
             currentViewModel = value;
-            OnCurrentViewModelChanged();
+                OnCurrentViewModelChanged();
         }
+    }
+
+    private void OnCurrentViewModelChanged()
+    {
+        CurrentViewModelChanged?.Invoke();
     }
 }
