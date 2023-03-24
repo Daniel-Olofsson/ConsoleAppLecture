@@ -8,15 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\ActiveCasesView.xaml.cs" />
-    <Compile Remove="Views\CaseView.xaml.cs" />
-    <Compile Remove="Views\NewCaseView.xaml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Page Remove="Views\ActiveCasesView.xaml" />
-    <Page Remove="Views\CaseView.xaml" />
-    <Page Remove="Views\NewCaseView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,10 +18,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\" />
   </ItemGroup>
 
 </Project>

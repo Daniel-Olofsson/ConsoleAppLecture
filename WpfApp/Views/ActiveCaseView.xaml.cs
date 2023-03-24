@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace WpfApp.Views
 {
     /// <summary>
-    /// Interaction logic for NewCaseView.xaml
+    /// Interaction logic for ActiveCaseView.xaml
     /// </summary>
-    public partial class NewCaseView : UserControl
+    public partial class ActiveCaseView : UserControl
     {
-        public NewCaseView()
+        public ActiveCaseView()
         {
             InitializeComponent();
         }

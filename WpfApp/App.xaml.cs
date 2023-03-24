@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Animation;
 using WpfApp.Models.ViewModels;
 using WpfApp.Services;
 
@@ -30,7 +31,7 @@ public partial class App : Application
         };
 
         MainWindow.Show();
-
+            
         base.OnStartup(e);
     }
 }
