@@ -1,4 +1,6 @@
-﻿using ConsoleApp.Services;
+﻿using ConsoleApp.Models.Entities;
+using ConsoleApp.Services;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,10 +19,31 @@ namespace WpfApp;
 /// </summary>
 public partial class App : Application
 {
-    protected override void OnStartup(StartupEventArgs e)
+    protected override async void OnStartup(StartupEventArgs e)
     {
         var statusService = new StatusService();
-        Task.Run(statusService.InitializeAsync);
+        var caseService = new CaseService();
+        await Task.Run(statusService.InitializeAsync);
+        var cEntity = new CustomerEntity
+        {
+
+        };
+        var entity = new CaseEntity();
+        
+        var result = await caseService.CreateAsync(entity);
+
+
+        //var customerService = new CustomerService();
+        //var currentUser = await customerService.GetAllAsync();
+        
+        Console.WriteLine(result);
+            
+
+        //if (currentUser == null)
+        //{
+
+        //}
+
 
         var navigationStore = new NavigationStore();
         navigationStore.CurrentViewModel = new ActiveCaseViewModel(navigationStore);
@@ -31,7 +54,9 @@ public partial class App : Application
         };
 
         MainWindow.Show();
+        
             
         base.OnStartup(e);
     }
+    
 }

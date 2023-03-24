@@ -6,6 +6,7 @@ namespace WpfApp.Services;
 
 internal class NavigationStore
 {
+    public int CustomerId { get; set; }
     public event Action? CurrentViewModelChanged;
 
     private ObservableObject? currentViewModel;

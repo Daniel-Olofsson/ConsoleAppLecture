@@ -23,7 +23,7 @@ internal partial class   NewCaseViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    private CaseEntity caseEntity = new CaseEntity();
+    private CaseEntity caseEntity = new CaseEntity() { };
 
     [RelayCommand]
     public void NavigateToActiveCases()
