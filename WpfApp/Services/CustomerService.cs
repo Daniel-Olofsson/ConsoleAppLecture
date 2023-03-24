@@ -1,5 +1,4 @@
-﻿using ConsoleApp.Context;
-using ConsoleApp.Models.Entities;
+﻿using ConsoleApp.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

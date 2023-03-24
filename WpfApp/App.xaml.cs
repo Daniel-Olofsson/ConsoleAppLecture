@@ -6,6 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using WpfApp.Models.ViewModels;
+using WpfApp.Services;
 
 namespace WpfApp;
 
@@ -17,7 +19,17 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         var statusService = new StatusService();
-        Task.Run();
+        Task.Run(statusService.InitializeAsync);
+
+        var navigationStore = new NavigationStore();
+        navigationStore.CurrentViewModel = new ActiveCaseViewModel(navigationStore);
+
+        MainWindow = new MainWindow()
+        {
+            DataContext = new MainViewModel(navigationStore)
+        };
+
+        MainWindow.Show();
 
         base.OnStartup(e);
     }
