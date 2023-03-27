@@ -19,25 +19,57 @@ namespace WpfApp;
 /// </summary>
 public partial class App : Application
 {
+    private readonly CustomerService customerService =new();
     protected override async void OnStartup(StartupEventArgs e)
     {
         var statusService = new StatusService();
         var caseService = new CaseService();
-        await Task.Run(statusService.InitializeAsync);
-        var cEntity = new CustomerEntity
+        var _case = new CaseEntity()
         {
 
+            Description = "new case",
+            Created = DateTime.Now,
+            Modified = DateTime.Now,
+
+
         };
-        var entity = new CaseEntity();
-        
-        var result = await caseService.CreateAsync(entity);
+        var customerObj = new CustomerEntity()
+        {
+            CustomerName = "new",
+            Email = "domain.com",
+            Cases = new List<CaseEntity> { _case }
+
+        };
+
+        var customer = await customerService.GetAllAsync();
+
+        foreach( var customerItem in customer)
+        {
+            Console.WriteLine($"{customerItem.CustomerName}");
+        }
 
 
-        //var customerService = new CustomerService();
+
+        //var create = await caseService.CreateAsync(_case);
+
+
+        var current = await caseService.GetAllAsync();
+
+        foreach (var item in current)
+        {
+            Console.WriteLine($"{item.Id} - {item.Modified} - {item.Description}");
+            Console.WriteLine($"{item.Status}");
+        }
+
+
+        await Task.Run(statusService.InitializeAsync);
+
+
+        //
         //var currentUser = await customerService.GetAllAsync();
-        
-        Console.WriteLine(result);
-            
+
+
+
 
         //if (currentUser == null)
         //{
@@ -46,6 +78,7 @@ public partial class App : Application
 
 
         var navigationStore = new NavigationStore();
+        
         navigationStore.CurrentViewModel = new ActiveCaseViewModel(navigationStore);
 
         MainWindow = new MainWindow()
