@@ -61,7 +61,7 @@ internal class CaseService
         var _caseEntity = await _context.Cases.FirstOrDefaultAsync(predicate);
         if (_caseEntity != null)
         {
-            switch (_caseEntity.StatusId, _caseEntity.Modified)
+            switch (_caseEntity.StatusId/*, _caseEntity.Modified*/)
             {
                 case 1: _caseEntity.StatusId = 2;
                     _caseEntity.Modified = DateTime.Now;

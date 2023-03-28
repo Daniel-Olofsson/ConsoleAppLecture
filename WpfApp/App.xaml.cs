@@ -24,26 +24,34 @@ public partial class App : Application
     {
         var statusService = new StatusService();
         var caseService = new CaseService();
+        var getStatus = await statusService.GetAsync(x=> x.Id == 2);
+
+        var getCustomer = await customerService.GetAsync(x=> x.Id == 1);
+
         var _case = new CaseEntity()
         {
 
-            Description = "new case",
+            Description = "new banana case",
             Created = DateTime.Now,
             Modified = DateTime.Now,
-
+            //Customer = getCustomer,
+            //Status = getStatus,
 
         };
         var customerObj = new CustomerEntity()
         {
-            CustomerName = "new",
-            Email = "domain.com",
+            CustomerName = "new user kiwi",
+            Email = "newkiwi@domain.com",
             Cases = new List<CaseEntity> { _case }
 
         };
 
+        var createCustomer = await customerService.CreateAsync(customerObj);
+
+
         var customer = await customerService.GetAllAsync();
 
-        foreach( var customerItem in customer)
+        foreach (var customerItem in customer)
         {
             Console.WriteLine($"{customerItem.CustomerName}");
         }
@@ -53,13 +61,13 @@ public partial class App : Application
         //var create = await caseService.CreateAsync(_case);
 
 
-        var current = await caseService.GetAllAsync();
+        //var current = await caseService.GetAllAsync();
 
-        foreach (var item in current)
-        {
-            Console.WriteLine($"{item.Id} - {item.Modified} - {item.Description}");
-            Console.WriteLine($"{item.Status}");
-        }
+        //foreach (var item in current)
+        //{
+        //    Console.WriteLine($"{item.Id} - {item.Modified} - {item.Description}");
+        //    //Console.WriteLine($"{item.Status}");
+        //}
 
 
         await Task.Run(statusService.InitializeAsync);

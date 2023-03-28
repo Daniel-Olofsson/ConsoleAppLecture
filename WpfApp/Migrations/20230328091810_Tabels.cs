@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WpfApp.Migrations
 {
     /// <inheritdoc />
-    public partial class Cases : Migration
+    public partial class Tabels : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
